@@ -4,7 +4,7 @@ ServoExtended testservo;
 void setup() {
   Serial.begin(9600);
   testservo.attach(9);
-  testservo.set();
+  testservo.write(0);
 }
 
 void loop() {
