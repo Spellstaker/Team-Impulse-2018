@@ -12,13 +12,12 @@ class ServoExtended : public Servo{
     ************************************************/
 
     void smooth(int new_deg) {
-      Serial.println("Moving Smoothly");
       deg = new_deg;
       write(deg);
     }
 
     void staggered(int new_deg) {
-      for (int dir = deg < new_deg ? 1 : -1; dir * (new_deg - deg) > 0; delay(step_time)) {
+      for (int diff = (new_deg - deg), dir = ((diff > 0) - (diff < 0)); dir*(new_deg - deg) > 0; delay(step_time)) {
         write(deg);
         deg += dir * step_size;
       }
