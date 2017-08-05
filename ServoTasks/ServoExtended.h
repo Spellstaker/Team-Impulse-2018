@@ -33,12 +33,6 @@ class ServoExtended : public Servo{
       Serial.print("Moved to: "); Serial.println(deg);
     }
 
-    void get_step_data() {
-      step_size = Serial.parseInt();
-      step_time = Serial.parseInt();
-      Serial.print("Step Size: "); Serial.println(step_size);
-      Serial.print("Step time: "); Serial.println(step_time);
-    }
 
   public:
 
@@ -91,6 +85,12 @@ class ServoExtended : public Servo{
     void set_mode_staggered() {
       mode = false;
       Serial.println("Mode switched to staggered");
-      get_step_data();
+    }
+    void set_mode_staggered(int s_size, int s_time) {
+      step_size = s_size;
+      step_time = s_time;
+      Serial.print("Step Size: "); Serial.println(step_size);
+      Serial.print("Step time: "); Serial.println(step_time);
+      set_mode_staggered();
     }
 };
