@@ -17,9 +17,12 @@ class ServoExtended : public Servo{
     }
 
     void staggered(int new_deg) {
-      for (int diff = (new_deg - deg), dir = ((diff > 0) - (diff < 0)); dir*(new_deg - deg) > 0; delay(step_time)) {
+      int diff = (new_deg - deg), 
+          dir = ((diff > 0) - (diff < 0));          
+      while (dir*(new_deg - deg) > 0) {
         write(deg);
         deg += dir * step_size;
+        delay(step_time)
       }
       deg = new_deg;
       write(deg);
@@ -77,6 +80,7 @@ class ServoExtended : public Servo{
       c_relative(move_to);
     }
 
+
     void set_mode_smooth() {
       mode = true;
       Serial.println("Mode switched to smooth");
@@ -85,12 +89,12 @@ class ServoExtended : public Servo{
     void set_mode_staggered() {
       mode = false;
       Serial.println("Mode switched to staggered");
+      Serial.print("Step Size: "); Serial.println(step_size);
+      Serial.print("Step time: "); Serial.println(step_time);
     }
     void set_mode_staggered(int s_size, int s_time) {
       step_size = s_size;
       step_time = s_time;
-      Serial.print("Step Size: "); Serial.println(step_size);
-      Serial.print("Step time: "); Serial.println(step_time);
       set_mode_staggered();
     }
 };

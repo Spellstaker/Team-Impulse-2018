@@ -30,6 +30,7 @@ void loop() {
       else if (command == "mode") {
         String mode = Serial.readStringUntil(' ');
         if (mode == "smooth;") testservo.set_mode_smooth();
+        if (mode == "staggered;") testservo.set_mode_staggered();
         if (mode == "staggered") {
           int step_size = Serial.readStringUntil(' ').toInt();
           int step_time = Serial.readStringUntil(';').toInt();
